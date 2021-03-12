@@ -16,7 +16,9 @@ double calcRight(double x, int n, double E, int *numberE)
 		right += temp;
 		temp *= (-1 * x * x) / ((2. * i + 1) * (2.*i));
 		if (i == n) result = right;
-		if (abs(sin(x) - right) < E && *numberE == 0) 
+		double z = right - sin(x);
+		z = z > 0 ? z : -z;
+		if (z - E <= 0 && *numberE == 0) 
 			*numberE = i;
 	}
 	if (*numberE == 0)
