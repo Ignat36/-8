@@ -1,4 +1,5 @@
 ﻿#include<stdio.h>
+#include<string.h>
 
 struct fraction
 {
@@ -15,9 +16,13 @@ void swap(int *a, int *b)
 
 void line()
 {
-	for (int i = 0; i < 50; i++)
-		printf_s("=");
-	printf_s("\n");
+	int i = 0;
+	while (i < 50)
+	{
+		printf("=");
+		i++;
+	}
+	printf("\n");
 }
 
 void print_fract(struct fraction x, int brackets_flag, int sign_flag, int coeff_flag)
@@ -25,30 +30,30 @@ void print_fract(struct fraction x, int brackets_flag, int sign_flag, int coeff_
 	if (sign_flag)
 	{
 		if (x.numerator > 0)
-			printf_s("+ ");
+			printf("+ ");
 		else if (x.numerator < 0)
-			printf_s("- ");
+			printf("- ");
 		if (x.numerator < 0) x.numerator = -x.numerator;
 	}
 
 	if (x.numerator < 0)
-		printf_s("-");
+		printf("-");
 	if (x.numerator < 0) x.numerator = -x.numerator;
 
 	if (x.denominator == 1)
 	{
 		if(!(x.numerator == 1 && coeff_flag))
-			printf_s("%d", x.numerator);
+			printf("%d", x.numerator);
 		return;
 	}
 
 	if (brackets_flag)
-		printf_s("(");
+		printf("(");
 
-	printf_s("%d / %d", x.numerator, x.denominator);
+	printf("%d / %d", x.numerator, x.denominator);
 
 	if (brackets_flag)
-		printf_s(")");
+		printf(")");
 }
 
 struct MyPolinom
@@ -75,47 +80,99 @@ int gcd(int a, int b)
 
 void adduce_factor(struct fraction *x)
 {
+	int temp = gcd(x->numerator, x->denominator);
 	int sign = 1;
 	if (x->numerator < 0)
 		sign = -1;
-	int temp = gcd(x->numerator, x->denominator);
 	x->numerator /= temp;
 	x->denominator /= temp;
 	x->numerator *= sign;
 	x->denominator *= sign;
 }
 
+int getInput()
+{
+	int i = 0;
+	char buffer[100];
+
+	scanf("%s", buffer);
+
+	if (strlen(buffer) > 20) return -999999787;
+
+	if (buffer[0] == ' ')
+	{
+		return -999999787;
+	}
+
+	if (buffer[i] == '-')
+	{
+		i++;
+	}
+
+	for (; i < strlen(buffer); i++)
+	{
+		if (buffer[i] > '9' || buffer[i] < '0') return -999999787;
+	}
+	return atoi(&buffer);
+}
+
 void input(struct MyPolinom *polinom)
 {
+	int tmp = -999999787;
 	polinom->C = 0;
-	printf_s("ax^3 + bx^2 + cx + d\n");
-	printf_s("Enter coefficient a : ");
-	scanf_s("%d", &polinom->a.numerator); polinom->a.denominator = 1;
+	printf("ax^3 + bx^2 + cx + d\n");
+	while (tmp == -999999787)
+	{
+		printf("Enter coefficient a : ");
+		tmp = getInput();
+		if(tmp == -999999787) printf("Invalid input\n");
+	}
+	polinom->a.numerator = tmp; polinom->a.denominator = 1;
 
-	printf_s("Enter coefficient b : ");
-	scanf_s("%d", &polinom->b.numerator); polinom->b.denominator = 1;
+	tmp = -999999787;
+	while (tmp == -999999787)
+	{
+		printf("Enter coefficient b : ");
+		tmp = getInput();
+		if (tmp == -999999787) printf("Invalid input\n");
+	}
+	polinom->b.numerator = tmp; polinom->b.denominator = 1;
 
-	printf_s("Enter coefficient c : ");
-	scanf_s("%d", &polinom->c.numerator); polinom->c.denominator = 1;
+	tmp = -999999787;
+	while (tmp == -999999787)
+	{
+		printf("Enter coefficient c : ");
+		tmp = getInput();
+		if (tmp == -999999787) printf("Invalid input\n");
+	}
+	polinom->c.numerator = tmp; polinom->c.denominator = 1;
 
-	printf_s("Enter coefficient d : ");
-	scanf_s("%d", &polinom->d.numerator); polinom->d.denominator = 1;
+	tmp = -999999787;
+	while (tmp == -999999787)
+	{
+		printf("Enter coefficient d : ");
+		tmp = getInput();
+		if (tmp == -999999787) printf("Invalid input\n");
+	}
+	polinom->d.numerator = tmp; polinom->d.denominator = 1;
 }
 
 void output(struct MyPolinom *polinom)
 {
 	int temp = 0, kol = 0;
-	if (polinom->a.numerator) { print_fract(polinom->a, 1, temp, 1); printf_s("x^3 "); temp++; kol++; }
-	if (polinom->b.numerator) { print_fract(polinom->b, 1, temp, 1); printf_s("x^2 "); temp++; kol++; }
-	if (polinom->c.numerator) { print_fract(polinom->c, 1, temp, 1); printf_s("x "); temp++; kol++; }
+	if (polinom->a.numerator) { print_fract(polinom->a, 1, temp, 1); printf("x^3 "); temp++; kol++; }
+	if (polinom->b.numerator) { print_fract(polinom->b, 1, temp, 1); printf("x^2 "); temp++; kol++; }
+	if (polinom->c.numerator) { print_fract(polinom->c, 1, temp, 1); printf("x "); temp++; kol++; }
 	if ((polinom->d.numerator || !kol) && (kol || !polinom->C)) { print_fract(polinom->d, 0, temp, 0); kol++; }
 
-	if (polinom->C) 
-		if(kol)
-			printf_s("+ C");
-		else 
-			printf_s("C");
-	printf_s("\n\n");
+	if (polinom->C)
+	{
+		if (kol)
+			printf("+ C");
+		else
+			printf("C");
+	}
+	printf("\n\n");
 }
 
 void differentiate(struct MyPolinom* polinom)
@@ -140,8 +197,8 @@ void count(struct MyPolinom polinom)
 {
 	int x;
 	float ans;
-	printf_s("Enter x : ");
-	scanf_s("%d", &x);
+	printf("Enter x : ");
+	scanf("%d", &x);
 
 	polinom.a.numerator *= x * x * x;
 	polinom.b.numerator *= x * x;
@@ -153,7 +210,7 @@ void count(struct MyPolinom polinom)
 
 	ans = polinom.a.numerator / (float)(polinom.a.denominator) + polinom.b.numerator / (float)(polinom.b.denominator) + polinom.c.numerator / (float)(polinom.c.denominator) + polinom.d.numerator / (float)(polinom.d.denominator);
 
-	printf_s("Expression equal : %f\n\n", ans);
+	printf("Expression equal : %f\n\n", ans);
 }
 
 int main()
@@ -165,9 +222,9 @@ int main()
 	while (request)
 	{
 		line();
-		printf_s(" Press 1 to enter new polynom\n Press 2 to get current polynom\n Press 3 to differentiate polynom\n Press 4 to integrate polynom\n Press 5 to count polynom up for an X\n Press 0 to quit programm\n\n Your request : ");
-		scanf_s("%d", &request);
-		printf_s("\n");
+		printf(" Press 1 to enter new polynom\n Press 2 to get current polynom\n Press 3 to differentiate polynom\n Press 4 to integrate polynom\n Press 5 to count polynom up for an X\n Press 0 to quit programm\n\n Your request : ");
+		request = getInput();
+		printf("\n");
 
 		switch (request)
 		{
@@ -186,9 +243,13 @@ int main()
 		case 5:
 			count(polinom);
 			break;
+		case 0:
+			break;
 		default:
+			printf("Invalid input\n");
 			break;
 		}
 		line();
 	}
+	return 0;
 }
