@@ -29,6 +29,13 @@ void insert(char **str, const char *ins, int pos)
 
 	char* tmp = *str;
 	*str = (char*)malloc((addSize + size + 4) * sizeof(char));
+
+	if (*str == NULL)
+	{
+		printf("Can not allocate memory");
+		exit(0);
+	}
+
 	for (int i = 0; i < size; i++)
 		(*str)[i] = tmp[i];
 	free(tmp);
@@ -47,6 +54,13 @@ void insert(char **str, const char *ins, int pos)
 int main()
 {
 	char** text = (char**)malloc(100 * sizeof(char*));
+
+	if (text == NULL)
+	{
+		printf("Can not allocate memory");
+		exit(0);
+	}
+
 	printf("Enter text : \n");
 
 	int i = -1;
@@ -54,6 +68,13 @@ int main()
 	{
 		i++;
 		text[i] = (char*)malloc(100 * sizeof(char));
+
+		if (text[i] == NULL)
+		{
+			printf("Can not allocate memory");
+			exit(0);
+		}
+
 		int j = 0;
 		char c = getchar();
 		while (c != '\n')
