@@ -4,6 +4,13 @@ int Check(char ***array, int n, int m, char flag)
 {
     int i, j, res = 0;
     struct cell** count = (struct cell**)malloc((n+1) * sizeof(struct cell*));
+
+    if (count == NULL)
+    {
+        printf("Can not allocate memory");
+        exit(0);
+    }
+
     for (i = 0; i < n; i++)
     {
         count[i] = (struct cell*)malloc((m+1) * sizeof(struct cell));
@@ -76,9 +83,20 @@ int main()
     printf_s("Enter field : \n");
 
     char** pole = (char**)malloc((n+1) * sizeof(char*));
+    if (pole == NULL)
+    {
+        printf("Can not allocate memory");
+        exit(0);
+    }
     for (i = 0; i < n; i++)
     {
         pole[i] = (char*)malloc((m+1) * sizeof(char));
+
+        if (pole[i] == NULL)
+        {
+            printf("Can not allocate memory");
+            exit(0);
+        }
 
         for (j = 0; j < m; j++)
         {
