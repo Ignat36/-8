@@ -27,7 +27,7 @@ public:
 	void ShowOnHoliday();
 	void fireOlder(int value = 64);
 	int size();
-	void output(FILE* file);
+	void output(FILE* file, const char* name = "input.txt");
 
 	Organization();
 	~Organization();
