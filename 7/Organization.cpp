@@ -160,9 +160,9 @@ int Organization::size()
 	return length;
 }
 
-void Organization::output(FILE* file)
+void Organization::output(FILE* file, const char* name)
 {
-	file = fopen("input.txt", "w");
+	file = fopen(name, "w");
 
 	if (file == NULL)
 	{
