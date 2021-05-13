@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: make
       run: |
-        cd Lr7Proga
+        cd 7
         make Test
         ./Test
         gcov Organization.cpp Worker.cpp Date.cpp Test.cpp -r
