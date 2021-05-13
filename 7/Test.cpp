@@ -1,6 +1,4 @@
 #include "Organization.h"
-#include <locale>
-#include <Windows.h>
 
 void DateCheck()
 {
@@ -26,11 +24,11 @@ void DateCheck()
 
 void WorkerCheck()
 {
-    Worker tmp = Worker("Игнат", "Шаргородский", "Сергеевич", 13, 5, 2003, "615gfh5654", "g4hfg5h6f51", "0", "-----", "Бог", 10024, 13, 5, 2003);
+    Worker tmp = Worker("Г€ГЈГ­Г ГІ", "ГГ Г°ГЈГ®Г°Г®Г¤Г±ГЄГЁГ©", "Г‘ГҐГ°ГЈГҐГҐГўГЁГ·", 13, 5, 2003, "615gfh5654", "g4hfg5h6f51", "0", "-----", "ГЃГ®ГЈ", 10024, 13, 5, 2003);
 
     printf("Worker check ");
 
-    if (tmp.FIO() == "Шаргородский Игнат Сергеевич" && tmp.FreeWeeks())
+    if (tmp.FIO() == "ГГ Г°ГЈГ®Г°Г®Г¤Г±ГЄГЁГ© Г€ГЈГ­Г ГІ Г‘ГҐГ°ГЈГҐГҐГўГЁГ·" && tmp.FreeWeeks())
         printf("complited\n");
     else
         printf("failed\n");
@@ -39,7 +37,7 @@ void WorkerCheck()
 void OrganizationCheck()
 {
     bool res = true;;
-    Worker tmp = Worker("Игнат", "Шаргородский", "Сергеевич", 13, 5, 2003, "615gfh5654", "g4hfg5h6f51", "0", "-----", "Бог", 10024, 13, 5, 2003);
+    Worker tmp = Worker("Г€ГЈГ­Г ГІ", "ГГ Г°ГЈГ®Г°Г®Г¤Г±ГЄГЁГ©", "Г‘ГҐГ°ГЈГҐГҐГўГЁГ·", 13, 5, 2003, "615gfh5654", "g4hfg5h6f51", "0", "-----", "ГЃГ®ГЈ", 10024, 13, 5, 2003);
     Organization A;
     
     res &= A.size() == 0;
