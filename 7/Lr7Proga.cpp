@@ -249,7 +249,7 @@ int main()
             line();
 
             line();
-            printf("Вывести срок работы \t\t\ 1\n");
+            printf("Вывести срок работы \t\t 1\n");
             printf("Вывести кол-во недель отпуска \t 2\n");
             printf("Уволить работника \t\t 3\n");
             printf("Вернуться назад \t\t 0\n");
@@ -304,5 +304,4 @@ int main()
     } while (request);
 
     A.output(file);
-
 }
