@@ -15,4 +15,6 @@ jobs:
         cd 7
         make Test
         ./Test
+        gcov Organization.cpp Worker.cpp Date.cpp Test.cpp -r
+        bash <(curl -s https://codecov.io/bash)
 
