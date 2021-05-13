@@ -1,6 +1,4 @@
 #include "Organization.h"
-#include <locale>
-#include <Windows.h>
 
 void DateCheck()
 {
@@ -15,7 +13,7 @@ void DateCheck()
     res &= B >= C;
     res &= C <= B;
     res &= (B - C) == 0;
-    
+
     printf("Data check ");
 
     if (B.show() == "11.09.2001" && res)
@@ -41,16 +39,28 @@ void OrganizationCheck()
     bool res = true;;
     Worker tmp = Worker("Игнат", "Шаргородский", "Сергеевич", 13, 5, 2003, "615gfh5654", "g4hfg5h6f51", "0", "-----", "Бог", 10024, 13, 5, 2003);
     Organization A;
-    
+
+    A.ShowOnWork();  printf("\n");
+
     res &= A.size() == 0;
 
     A.employ(tmp);
 
+    FILE* file = nullptr;
+    A.output(file, "test.txt");
+
     res &= A.size() == 1;
 
-    res &= A.findFIO(tmp.FIO()).IDNumber == tmp.IDNumber && A.findID(tmp.IDNumber).IdentificationNumber == tmp.IdentificationNumber;
+    res &= A.findFIO(tmp.FIO()).IDNumber == tmp.IDNumber && A.findID(tmp.IDNumber).IdentificationNumber == tmp.IdentificationNumber && A.findSoc(tmp.SocialInsurance).IdentificationNumber == tmp.IdentificationNumber && A.findIdentNum(tmp.IdentificationNumber).IDNumber == tmp.IDNumber;
 
     A.fire();
+
+    res &= A.size() == 0;
+
+    tmp = Worker("Игнат", "Шаргородский", "Сергеевич", 13, 5, 1003, "615gfh5654", "g4hfg5h6f51", "0", "-----", "Бог", 10024, 13, 5, 2003); tmp.onWork = false;
+    A.employ(tmp);
+    A.ShowOnHoliday(); printf("\n");
+    A.fireOlder();
 
     res &= A.size() == 0;
 
@@ -60,6 +70,7 @@ void OrganizationCheck()
         printf("complited\n");
     else
         printf("failed\n");
+    
 }
 
 #undef main
